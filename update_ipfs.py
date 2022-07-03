@@ -8,7 +8,7 @@ def update(project):
             meta_data={}
             with open(project+'/meta/'+file, 'r') as f:
                 meta_data= json.load(f)
-                meta_data['image']= ipfs[project]+'/png/'+meta_data['image']
+                meta_data['image']= ipfs[project]+'/png/'+file[:-5]+'.png'
             with open(project+'/meta/'+file, 'w') as f:
                 json.dump(meta_data, f, indent=4, ensure_ascii=False)
 
