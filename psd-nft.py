@@ -17,7 +17,7 @@ meta_data={}
 ID=0
 
 def layer_info(layer):
-    print(f'{layer.is_group()} {layer.name} size-{layer.size} offset-{layer.offset} opacity-{layer.opacity}')
+    print(f'{"Group" if layer.is_group() else "Element"} {layer.name} size-{layer.size} offset-{layer.offset} opacity-{layer.opacity}')
 
 def go_through(file):
     total_elements=1
