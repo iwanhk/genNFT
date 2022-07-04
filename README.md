@@ -22,3 +22,12 @@ Get the ipfs path and edit ipfs.json file to save the path
 Step5:
 update_ipfs.py [project] [project] ...
 Go through all the metadata files in [project/meta] dir and update them with ipfs path
+
+ipfs://bafybeidhtpoveijwhbap52l3f5dgglihsxrthg4ah4z26prcutyn6frla4
+https://nftstorage.link/ipfs/bafybeidhtpoveijwhbap52l3f5dgglihsxrthg4ah4z26prcutyn6frla4
+bafybeidhtpoveijwhbap52l3f5dgglihsxrthg4ah4z26prcutyn6frla4
+
+
+https://nftstorage.link/ipfs/bafybeicnnewm2jibaenborp44zn6uuvenxw4ioplbb5q6ujoqhzldo4wae/
+ipfs://bafybeicnnewm2jibaenborp44zn6uuvenxw4ioplbb5q6ujoqhzldo4wae
+bafybeicnnewm2jibaenborp44zn6uuvenxw4ioplbb5q6ujoqhzldo4wae
