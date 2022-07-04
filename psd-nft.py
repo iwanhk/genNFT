@@ -101,7 +101,7 @@ def gen_image(size):
             if matrix >= elements[i][1]:
                 id= elements_size-1-i
                 record+= elements[i][0]+ '+'
-                print(f"Rarity {feature} - {elements[i][0]}")
+                #print(f"Rarity {feature} - {elements[i][0]}")
                 if components[feature][id]!= None:
                     image.paste(components[feature][id], pos[feature][id], components[feature][id])
 
@@ -115,6 +115,26 @@ def gen_image(size):
                 break
 
     return image, record
+
+def gen_nft(ID):
+    while True:
+        image, record = gen_image(size)
+
+        if record in records:
+            print(f"{record} had been generated")
+        else:
+            records[record]=ID
+            #image.show()
+            image.save(project+ '/png/'+ str(ID)+'.png')
+            meta_data['image']=str(ID)+'.png'
+            gen_meta(ID, project)
+
+            print(f"[{ID}] {record}")
+            return
+            
+def gen_test(ID):
+    print(ID)
+    return ID*ID
 
 if __name__ =="__main__":
     if len(sys.argv)<=1:
@@ -160,22 +180,8 @@ if __name__ =="__main__":
     if len(sys.argv)<=2:
         exit(0)
 
-    i=0
-    while i < int(sys.argv[2]):
-        image, record = gen_image(size)
-
-        if record in records:
-            print(f"{record} had been generated")
-        else:
-            records[record]=ID
-            #image.show()
-            image.save(project+ '/png/'+ str(ID)+'.png')
-            meta_data['image']=str(ID)+'.png'
-            gen_meta(ID, project)
-
-            print(f"[{i}/{ID}] {record}")
-            i+=1
-            ID+=1
+    #list(map(gen_nft, list(range(ID, ID+ int(sys.argv[2])))))
+    [*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
 
     with open(project+'/records.json', 'w+') as f:
         json.dump(records, f, indent=4, ensure_ascii=False)
