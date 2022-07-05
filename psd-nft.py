@@ -3,6 +3,9 @@ from psd_tools import PSDImage
 import PIL.Image as Image
 import json, os, sys
 import random
+import math
+from multiprocessing.dummy import Pool as ThreadPool
+from functools import partial
 
 components={}
 
@@ -180,8 +183,14 @@ if __name__ =="__main__":
     if len(sys.argv)<=2:
         exit(0)
 
+    threadAmount= max(round(math.sqrt(int(sys.argv[2]))), 4)
+    pool = ThreadPool(threadAmount) 
     #list(map(gen_nft, list(range(ID, ID+ int(sys.argv[2])))))
-    [*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
+    #[*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
+    pool.map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))
+    pool.close()
+    pool.join()
 
+    records= dict(sorted(records.items(), key=lambda x: x[1]))
     with open(project+'/records.json', 'w+') as f:
         json.dump(records, f, indent=4, ensure_ascii=False)
