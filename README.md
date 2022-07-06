@@ -19,11 +19,12 @@
 ## Step4:
 Upload the [png] dir with png files to ipfs
 > this will:
-Get the ipfs path and edit ipfs.json file to save the path
+> Get the ipfs path and edit ipfs.json file to save the path
 
 ## Step5:
 `update_ipfs.py [project] [project] ...`
-Go through all the metadata files in [project/meta] dir and update them with ipfs path
+> this will:
+> Go through all the metadata files in [project/meta] dir and update them with ipfs path
 
 ## memo
 ipfs://bafybeidhtpoveijwhbap52l3f5dgglihsxrthg4ah4z26prcutyn6frla4
