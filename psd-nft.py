@@ -5,7 +5,7 @@ import json, os, sys
 import random
 import math
 from multiprocessing.dummy import Pool as ThreadPool
-from functools import partial
+from tqdm import tqdm
 
 components={}
 
@@ -18,6 +18,8 @@ records={}
 meta_data={}
 
 ID=0
+
+pbar=None
 
 def layer_info(layer):
     print(f'{"Group" if layer.is_group() else "Element"} {layer.name} size-{layer.size} offset-{layer.offset} opacity-{layer.opacity}')
@@ -99,6 +101,7 @@ def gen_image(size):
         elements= rarity[feature]
         elements.reverse()
         elements_size= len(elements)
+        print(meta_data) # to activate the late write content
 
         for i in range(elements_size):
             if matrix >= elements[i][1]:
@@ -124,7 +127,8 @@ def gen_nft(ID):
         image, record = gen_image(size)
 
         if record in records:
-            print(f"{record} had been generated")
+            # print(f"{record} had been generated")
+            pass
         else:
             records[record]=ID
             #image.show()
@@ -132,7 +136,8 @@ def gen_nft(ID):
             meta_data['image']=str(ID)+'.png'
             gen_meta(ID, project)
 
-            print(f"[{ID}] {record}")
+            # print(f"[{ID}] {record}")
+            pbar.update(1)
             return
             
 def gen_test(ID):
@@ -144,6 +149,7 @@ if __name__ =="__main__":
         print("Uage: psd-nft.py [psd file] [number to generate]")
         exit(0)
 
+    print(f"Loading PSD file: {sys.argv[1]}")
     total, size = go_through(sys.argv[1])
     project= sys.argv[1][:-4] # remove .psd
 
@@ -178,19 +184,31 @@ if __name__ =="__main__":
             records= json.load(f)
             ID= len(records)
 
-    print(f"Total {total} elements can be generated")
-
     if len(sys.argv)<=2:
+        print(f"0/{total} elements had be generated")
         exit(0)
 
-    threadAmount= max(round(math.sqrt(int(sys.argv[2]))), 4)
+    amount= int(sys.argv[2])
+
+    if amount+ ID>= total:
+        print(f"Total {total} elements, {ID} had been generated, no {amount} left")
+        exit(0)
+
+    print(f"Total {total} elements, {ID} had been generated, {amount} to be peocessed...")
+    
+    threadAmount= max(round(math.sqrt(amount)), 4)
     pool = ThreadPool(threadAmount) 
     #list(map(gen_nft, list(range(ID, ID+ int(sys.argv[2])))))
     #[*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
-    pool.map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))
+
+    pbar= tqdm(desc=project, total=amount)
+
+    pool.map(gen_nft, list(range(ID, ID+ amount)))
     pool.close()
     pool.join()
 
     records= dict(sorted(records.items(), key=lambda x: x[1]))
     with open(project+'/records.json', 'w+') as f:
         json.dump(records, f, indent=4, ensure_ascii=False)
+
+    print(f"Total {total} elements, {len(records)} had been generated, check records.json for details")
