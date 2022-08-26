@@ -1,0 +1,52 @@
+{
+    "name": "墨鱼仔#5",
+    "symbol": "MYZ",
+    "description": "墨鱼仔是新一代WEB3的年轻人形象",
+    "image": "https://nftstorage.link/ipfs/bafybeidhtpoveijwhbap52l3f5dgglihsxrthg4ah4z26prcutyn6frla4/5.png",
+    "attributes": [
+        {
+            "trait_type": "背景",
+            "value": "深海气泡"
+        },
+        {
+            "trait_type": "触手",
+            "value": "灰色黑触手"
+        },
+        {
+            "trait_type": "身体服装",
+            "value": "紫黑色制服"
+        },
+        {
+            "trait_type": "脖饰",
+            "value": "眼镜"
+        },
+        {
+            "trait_type": "脸饰品",
+            "value": "单脸"
+        },
+        {
+            "trait_type": "眼部",
+            "value": "正常眼睛"
+        },
+        {
+            "trait_type": "护目镜",
+            "value": "护目镜"
+        },
+        {
+            "trait_type": "头发",
+            "value": "灰褐头发"
+        },
+        {
+            "trait_type": "帽子",
+            "value": "绿色帽子"
+        },
+        {
+            "trait_type": "手持物品",
+            "value": "书无手套"
+        },
+        {
+            "trait_type": "遮挡幕布",
+            "value": "无幕布"
+        }
+    ]
+}
