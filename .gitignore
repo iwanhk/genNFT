@@ -3,3 +3,5 @@ moyukid/*
 apeminer/*
 *.psd
 .DS_Store
+*.png
+*.json

@@ -6,7 +6,7 @@ import os
 import sys
 import random
 import math
-from multiprocessing.dummy import Pool as ThreadPool
+from multiprocessing.dummy import Pool as ThreadPool, Lock
 from tqdm import tqdm
 
 components = {}
@@ -22,6 +22,8 @@ meta_data = {}
 ID = 0
 
 pbar = None
+
+lock = Lock()
 
 
 def layer_info(layer):
@@ -89,14 +91,13 @@ def gen_meta(id, project):
             json.dump(meta, f, indent=4, ensure_ascii=False)
 
     else:  # generate meta file for each PNG
-        meta = meta_data
-        meta['name'] += '#' + str(id)
-        meta['image'] = str(id) + '.png'
+        meta_data['name'] = project + '#' + str(id)
+        meta_data['image'] = str(id) + '.png'
         # attributes ameatdata had been changed in gen_image
         with open(project+'/meta/'+str(id)+'.json', 'w') as f:
-            json.dump(meta, f, indent=4, ensure_ascii=False)
+            json.dump(meta_data, f, indent=4, ensure_ascii=False)
         # restore name value
-        meta['name'] = meta['name'][:-(len(str(id))+1)]
+        meta_data['name'] = project
 
 
 def gen_image(elements, size):
@@ -205,7 +206,7 @@ if __name__ == "__main__":
     if os.path.exists(project+'/records.json'):
         with open(project+'/records.json', 'r') as f:
             records = json.load(f)
-            ID = list(records.values())[-1]
+            ID = list(records.values())[-1]+1
 
     if len(sys.argv) <= 2:
         print(f"0/{total} elements had be generated")
