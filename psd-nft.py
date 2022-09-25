@@ -1,4 +1,5 @@
 # -*-coding:utf-8 -*-
+# from fcntl import I_ATMARK
 from psd_tools import PSDImage
 import PIL.Image as Image
 import json
@@ -6,7 +7,7 @@ import os
 import sys
 import random
 import math
-from multiprocessing.dummy import Pool as ThreadPool, Lock
+# from multiprocessing.dummy import Pool as ThreadPool, Lock
 from tqdm import tqdm
 
 components = {}
@@ -23,7 +24,7 @@ ID = 0
 
 pbar = None
 
-lock = Lock()
+# lock = Lock()
 
 
 def layer_info(layer):
@@ -223,15 +224,18 @@ if __name__ == "__main__":
         f"Total {total} elements, {ID} had been generated, {amount} to be peocessed...")
 
     threadAmount = max(round(math.sqrt(amount)), 4)
-    pool = ThreadPool(threadAmount)
+    # pool = ThreadPool(threadAmount)
     #list(map(gen_nft, list(range(ID, ID+ int(sys.argv[2])))))
     #[*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
 
     pbar = tqdm(desc=project, total=amount)
 
-    pool.map(gen_nft, list(range(ID, ID + amount)))
-    pool.close()
-    pool.join()
+    # pool.map(gen_nft, list(range(ID, ID + amount)))
+    # pool.close()
+    # pool.join()
+    for i in range(ID, ID + amount):
+        gen_nft(i)
+        pbar.update(1)
 
     records = dict(sorted(records.items(), key=lambda x: x[1]))
     with open(project+'/records.json', 'w+') as f:
