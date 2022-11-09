@@ -7,7 +7,7 @@ import os
 import sys
 import random
 import math
-# from multiprocessing.dummy import Pool as ThreadPool, Lock
+from multiprocessing.dummy import Pool as ThreadPool, Lock
 from tqdm import tqdm
 
 components = {}
@@ -223,12 +223,15 @@ if __name__ == "__main__":
     print(
         f"Total {total} elements, {ID} had been generated, {amount} to be peocessed...")
 
-    threadAmount = max(round(math.sqrt(amount)), 4)
-    # pool = ThreadPool(threadAmount)
-    #list(map(gen_nft, list(range(ID, ID+ int(sys.argv[2])))))
-    #[*map(gen_nft, list(range(ID, ID+ int(sys.argv[2]))))]
-
     pbar = tqdm(desc=project, total=amount)
+
+    # threadAmount = max(round(math.sqrt(amount)), 4)
+    # pool = ThreadPool(threadAmount)
+    # list(map(gen_nft, list(range(ID, ID + int(sys.argv[2])))))
+    # pool.close()
+    # pool.join()
+
+    # [*map(gen_nft, list(range(ID, ID + int(sys.argv[2]))))]
 
     # pool.map(gen_nft, list(range(ID, ID + amount)))
     # pool.close()
@@ -241,4 +244,5 @@ if __name__ == "__main__":
     with open(project+'/records.json', 'w+') as f:
         json.dump(records, f, indent=4, ensure_ascii=False)
 
-    #print(f"Total {total} elements, {len(records)} had been generated, check records.json for details")
+    # print(
+        # f"Total {total} elements, {len(records)} had been generated, check records.json for details")
