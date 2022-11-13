@@ -5,3 +5,5 @@ apeminer/*
 .DS_Store
 *.png
 *.json
+*.zip
+*.gz

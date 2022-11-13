@@ -6,23 +6,19 @@ team = {}
 
 
 def thumbnail(file, path):
-    if not os.path.exists(file):
-        return
     im = Image.open(file)
-    im.thumbnail((350, 350))
+    im.thumbnail((80, 80))
     im.save(path)
 
 
 def main():
-    with open('AzuGoal/records.json', 'r') as f:
+    with open('HotoDoge/records.json', 'r') as f:
         records = json.load(f)
 
     for i in list(records.keys()):
-        team = i.split('+')[3]
-        file = "Azugoal/png/"+str(records[i])+".png"
-        if not os.path.exists("AzuGoal/thumbnail"):
-            os.mkdir("AzuGoal/thumbnail")
-        path = "AzuGoal/thumbnail/" + team
+        team = i.split('+')[2][6:]
+        file = "HotoDoge/png/"+str(records[i])+".png"
+        path = "HotoDoge/thumbnail/" + team
 
         if not os.path.exists(path):
             print('Generating ' + path)
