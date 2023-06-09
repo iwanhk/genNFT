@@ -4,6 +4,7 @@ import pandas as pd
 from openpyxl import load_workbook
 import copy
 
+image_link = 'https://histore-isotop.oss-cn-beijing.aliyuncs.com/image/'
 ignore = ["艺术品主图", "NFT信息录入", "版权信息->",
           "作品版权溯源->", "艺术品NFT藏品图片", "哈希值", "区块链信息查询->"]
 
@@ -52,7 +53,7 @@ def excel_to_json(file_path):
                 value = str(int(value))
             # print(key, value)
             if key == '编号ID':
-                json_data["image"] = value
+                json_data["image"] = image_link+value+'.jpg'
                 continue
             if key == '作品名称':
                 json_data["name"] = value
